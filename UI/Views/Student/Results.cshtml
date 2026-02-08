@@ -1,0 +1,47 @@
+﻿@model List<Entities.Models.StudentExamsViewModel>
+
+<div class="container mt-5 pt-5">
+    @Html.ActionLink("Back", "Index", "Student", new { role = "Teacher" }, new { @class = "btn btn-primary" })
+
+    @if (!Model.Any())
+    {
+        <p>No exams available.</p>
+    }
+    else
+    {
+        foreach (var group in Model)
+        {
+            <h3>Teacher: @group.Teacher.TeacherId</h3>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Tasks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var exam in group.Exams)
+                    {
+                        <tr>
+                            <td>@exam.Id</td>
+                            <td>
+                                <ul>
+                                    @foreach (var task in exam.Tasks)
+                                    {
+                                        <li>
+                                            <strong>Expression:</strong> @task.Expression <br />
+                                            <strong>Expected Result:</strong> @task.ExpectedResult <br />
+                                            <strong>Calculated Result:</strong> @task.CalculatedResult <br />
+                                            <strong>Correct:</strong> @(task.IsCorrect ? "Yes" : "No")
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

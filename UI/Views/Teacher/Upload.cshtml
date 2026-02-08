@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+    @Html.ActionLink("Back", "Index", "Teacher", new { role = "Teacher" }, new { @class = "btn btn-primary" })
+    <h2>Upload Student Exam XML</h2>
+
+    <form action="@Url.Action("Upload", "Teacher")" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+        <div style="margin-bottom:10px;">
+            <label for="file">Select XML file:</label>
+            <input class="form-control" type="file" name="file" id="file" accept=".xml" required />
+            <div class="invalid-feedback">
+                Please select a file
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Upload & Grade</button>
+    </form>
+</div>
+<script>
+(function () {
+    'use strict';
+
+    // Get all forms with validation class
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop through forms
+    for (var i = 0; i < forms.length; i++) {
+        (function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.className += ' was-validated';
+            }, false);
+        })(forms[i]);
+    }
+})();
+</script>

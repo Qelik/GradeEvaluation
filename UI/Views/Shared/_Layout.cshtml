@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Grade Evaluator</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
+        <div class="container">
+            @Html.ActionLink("Grade Evaluator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (Session["UserId"] == null)
+                    {
+                        <li>@Html.ActionLink("Teacher", "Index", "Teacher", null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Student", "Index", "Student", null, new { @class = "nav-link" })</li>
+                    }
+                    else if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Teacher")
+                    {
+                        <li>@Html.ActionLink("Teacher", "Index", "Teacher", null, new { @class = "nav-link" })</li>
+                    }
+                    else if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Student")
+                    {
+                        <li>@Html.ActionLink("Student", "Index", "Student", null, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+            </div>
+            <span class="navbar-text">
+                @if (Session["UserId"] != null)
+                {
+                    <span>
+                        Logged in as:
+                        <strong>@Session["DisplayName"]</strong>
+                    </span>
+                    @Html.ActionLink("Logout", "Logout", "Account", null, new { style = "margin-left:15px;" })
+                }
+            </span>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <div class="container pb-5 mb-5">
+            @RenderBody()
+        </div>
+        <footer class="container fixed-bottom bottom-0 bg-white mt-5">
+            <hr />
+            <p>&copy; @DateTime.Now.Year - Grade Evaluator</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

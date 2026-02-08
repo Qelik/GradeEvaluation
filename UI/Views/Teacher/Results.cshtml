@@ -1,0 +1,92 @@
+﻿@model Entities.Teacher
+
+@{
+    ViewBag.Title = "Exam Results";
+}
+<div class="container mt-5 pt-5">
+    @Html.ActionLink("Back", "Index", "Teacher", new { role = "Teacher" }, new { @class = "btn btn-primary" })
+    <h2>Exam Results</h2>
+
+    @if (Model == null)
+    {
+        <p>No data available for the current teacher.</p>
+    }
+    else
+    {
+        <p>
+            <strong>Teacher ID:</strong> @Model.TeacherId
+        </p>
+        <hr />
+
+        
+        var examsForTeacher = (Model.Exams ?? Enumerable.Empty<Entities.Exam>())
+                                .Where(e => e != null && e.TeacherId == Model.TeacherId)
+                                .ToList();
+
+        if (!examsForTeacher.Any())
+        {
+            <p>No exams available for this teacher.</p>
+        }
+        else
+        {
+            // Group exams by student id so we can show results per student
+            var examsByStudent = examsForTeacher
+                                .GroupBy(e => e.StudentId)
+                                .OrderBy(g => g.Key)
+                                .ToList();
+
+            foreach (var group in examsByStudent)
+            {
+                // Try to find the loaded student object (may be null if not loaded)
+                var student = Model.Students?.FirstOrDefault(s => s.StudentId == group.Key);
+                <h3>Student ID: @(student?.StudentId ?? group.Key)</h3>
+
+                foreach (var exam in group)
+                {
+                    var totalTasks = exam.Tasks?.Count() ?? 0;
+                    var correctTasks = exam.Tasks?.Count(t => t.IsCorrect) ?? 0;
+
+                    <h4>Exam ID: @exam.Id</h4>
+                    <p>
+                        <strong>Score:</strong> @correctTasks / @totalTasks
+                    </p>
+
+                    <table class="table table-bordered" style="margin-bottom:20px;">
+                        <thead>
+                            <tr>
+                                <th>Task ID</th>
+                                <th>Expression</th>
+                                <th>Expected</th>
+                                <th>Calculated</th>
+                                <th>Correct</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (exam.Tasks == null || !exam.Tasks.Any())
+                            {
+                                <tr>
+                                    <td colspan="5">No tasks recorded for this exam.</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var task in exam.Tasks)
+                                {
+                                    <tr>
+                                        <td>@task.Id</td>
+                                        <td>@task.Expression</td>
+                                        <td>@task.ExpectedResult</td>
+                                        <td>@task.CalculatedResult</td>
+                                        <td>@(task.IsCorrect ? "✔" : "✘")</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+
+                <hr />
+            }
+        }
+    }
+</div>

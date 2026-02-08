@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+    <h2>@ViewBag.LoginTitle</h2>
+
+    <form action="@Url.Action("Login", "Account")" method="post" class="needs-validation" novalidate>
+
+        <div class="" style="margin-bottom:10px;">
+            <label for="id" class="form-label">@ViewBag.IdLabel</label><br />
+            <input class="form-control" type="number" id="id" name="id" required />
+            <div class="invalid-feedback">
+                Please fill in your ID
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Login</button>
+
+    </form>
+</div>
+<script>
+(function () {
+    'use strict';
+
+    // Get all forms with validation class
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop through forms
+    for (var i = 0; i < forms.length; i++) {
+        (function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.className += ' was-validated';
+            }, false);
+        })(forms[i]);
+    }
+})();
+</script>
+
