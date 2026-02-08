@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
@@ -7,22 +9,23 @@ public class GradingServiceTests
     [TestMethod]
     public void Grade_CorrectAnswer_MarkedAsCorrect()
     {
+        // Construct concrete lists to avoid depending on entity constructors / EF proxies
         var teacher = new Teacher
         {
-            Students =
+            Students = new List<Student>
             {
                 new Student
                 {
-                    Exams =
+                    Exams = new List<Exam>
                     {
                         new Exam
                         {
-                            Tasks =
+                            Tasks = new List<Task>
                             {
                                 new Task
                                 {
                                     Expression = "2+2",
-                                    ExpectedResult = 4
+                                    ExpectedResult = 4m
                                 }
                             }
                         }
@@ -34,6 +37,10 @@ public class GradingServiceTests
         var service = new ExamGradingService(new MathEvaluator());
         service.Grade(teacher);
 
-        Assert.IsTrue(teacher.Students[0].Exams[0].Tasks[0].IsCorrect);
+        // Verify task was evaluated and marked correct
+        var task = teacher.Students.First().Exams.First().Tasks.First();
+        Assert.IsNotNull(task, "Task should not be null after setup.");
+        Assert.AreEqual(4m, task.CalculatedResult, "CalculatedResult should be 4.");
+        Assert.IsTrue(task.IsCorrect, "Task with correct expression should be marked as correct.");
     }
 }
