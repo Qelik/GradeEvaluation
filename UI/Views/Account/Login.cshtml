@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5 pt-5">
+<div class="container login-wrapper p-5">
     <h2>@ViewBag.LoginTitle</h2>
 
     <form action="@Url.Action("Login", "Account")" method="post" class="needs-validation" novalidate>
@@ -21,26 +21,27 @@
 
     </form>
 </div>
+
 <script>
-(function () {
-    'use strict';
+    (function () {
+        'use strict';
 
-    // Get all forms with validation class
-    var forms = document.querySelectorAll('.needs-validation');
+        // Get all forms with validation class
+        var forms = document.querySelectorAll('.needs-validation');
 
-    // Loop through forms
-    for (var i = 0; i < forms.length; i++) {
-        (function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
+        // Loop through forms
+        for (var i = 0; i < forms.length; i++) {
+            (function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
 
-                form.className += ' was-validated';
-            }, false);
-        })(forms[i]);
-    }
-})();
+                    form.className += ' was-validated';
+                }, false);
+            })(forms[i]);
+        }
+    })();
 </script>
 

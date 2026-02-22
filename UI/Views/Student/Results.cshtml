@@ -1,6 +1,6 @@
 ﻿@model List<Entities.Models.StudentExamsViewModel>
 
-<div class="container mt-5 pt-5">
+<div class="container results">
     @Html.ActionLink("Back", "Index", "Student", new { role = "Teacher" }, new { @class = "btn btn-primary" })
 
     @if (!Model.Any())

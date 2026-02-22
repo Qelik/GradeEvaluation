@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
+    <nav class="navbar glass-card navbar-expand-sm navbar-toggleable-sm fixed-top m-2">
         <div class="container">
             @Html.ActionLink("Grade Evaluator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
@@ -44,13 +44,14 @@
             </span>
         </div>
     </nav>
-    <div class="container body-content">
-        <div class="container pb-5 mb-5">
+    <div id="main-body" class="container body-content py-5 vh-100">
+        <div class="body-content-Wrapper container glass-card p-5">
             @RenderBody()
         </div>
-        <footer class="container fixed-bottom bottom-0 bg-white mt-5">
-            <hr />
-            <p>&copy; @DateTime.Now.Year - Grade Evaluator</p>
+        <footer class="glass-card fixed-bottom bottom-0 pt-4 mt-5 m-2">
+            <div class="container">
+                <p>Çelik Hasanaj &copy; @DateTime.Now.Year - Grade Evaluator</p>
+            </div>
         </footer>
     </div>
 

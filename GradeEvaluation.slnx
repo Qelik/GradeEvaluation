@@ -1,20 +1,20 @@
 <Solution>
   <Folder Name="/Api/">
-    <Project Path="Bridge/Bridge.csproj" />
+    <Project Path="Bridge/Bridge.csproj" Id="1e4f53e5-e5e8-4307-bc0b-4ae0694d1494" />
   </Folder>
   <Folder Name="/Domain/">
-    <Project Path="Entities/Entities.csproj" />
+    <Project Path="Entities/Entities.csproj" Id="775aef63-a60e-4610-9792-363f3f8d9e37" />
   </Folder>
   <Folder Name="/Infrastructure/">
-    <Project Path="Repositories/Repositories.csproj" />
+    <Project Path="Repositories/Repositories.csproj" Id="9a836266-12ee-429f-bd1b-dd3b1e28f35c" />
   </Folder>
   <Folder Name="/MathProcessor/">
-    <Project Path="GradeEvaluation/MathProcessor.csproj" />
+    <Project Path="GradeEvaluation/MathProcessor.csproj" Id="ec80a8b5-5cf9-4d23-85f3-6f2f83d7a30d" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="Tests/Tests.csproj" />
+    <Project Path="Tests/Tests.csproj" Id="7cde7c6b-6f2e-4370-a065-b399b3d627a1" />
   </Folder>
   <Folder Name="/Web/">
-    <Project Path="UI/UI.csproj" />
+    <Project Path="UI/UI.csproj" Id="2ba87b6d-88d5-42de-a732-203c41fa4683" />
   </Folder>
 </Solution>
